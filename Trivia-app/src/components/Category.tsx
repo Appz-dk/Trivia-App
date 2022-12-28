@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import { getQuestions } from "../api/getQuestions";
 import classes from "./category.module.css";
 import Contaier from "./utils/Contaier";
 
 // https://the-trivia-api.com/api/questions?categories=arts_and_literature&limit=5&difficulty=easy
 
 const DIFFICULTY = ["easy", "medium", "hard"];
-const AMOUNT_OF_QUESTIONS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 const Category = () => {
   const { category } = useParams();
   const [questionsAmount, setQuestionsAmount] = useState<string>("1");
-  const [difficulty, setDifficulty] = useState("easy");
+  const [difficulty, setDifficulty] = useState(DIFFICULTY[0]);
 
   const handleDifficultyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setDifficulty(e.target.value);
@@ -21,16 +21,21 @@ const Category = () => {
     setQuestionsAmount(e.target.value);
   };
 
-  const handleGetQuestions = (e: React.FormEvent) => {
+  const handleGetQuestions = async (e: React.FormEvent) => {
     e.preventDefault();
     const amountNumber = Number(questionsAmount);
-    const invalidInput = !difficulty || !amountNumber || amountNumber < 1 || amountNumber > 10;
+    const invalidInput = !category || !difficulty || !amountNumber || amountNumber < 1 || amountNumber > 10;
     if (invalidInput) {
       // TODO Add UI alert
       return console.log("Invalid Form input!");
     }
+    // Convert category to accepted string by api
+    const categoryToReqest = category?.replace(" & ", "_and_").toLowerCase().split(" ").join("_");
 
-    return;
+    // Send request to API for getting questions
+    const { data } = await getQuestions({ categoryToReqest, questionsAmount, difficulty });
+    console.log(data);
+    // Store questions in questions context ??
   };
 
   return (
