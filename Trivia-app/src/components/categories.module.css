@@ -1,0 +1,16 @@
+.categories {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    width: 80%;
+    height: 20rem;
+    margin-inline: auto;
+    gap: 1rem;
+}
+
+.category {
+    margin-block: auto;
+    border: 1px solid white;
+    padding: 2rem 1rem;
+    cursor: pointer;
+    color: white;
+}
