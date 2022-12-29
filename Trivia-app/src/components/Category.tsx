@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getQuestions } from "../api/getQuestions";
+import { QuestionsContext, TQuestions } from "../App";
 import classes from "./category.module.css";
 import Contaier from "./utils/Contaier";
 
@@ -9,6 +10,7 @@ import Contaier from "./utils/Contaier";
 const DIFFICULTY = ["easy", "medium", "hard"];
 
 const Category = () => {
+  const { questionsState, setQuestionsState } = useContext(QuestionsContext);
   const { category } = useParams();
   const [questionsAmount, setQuestionsAmount] = useState<string>("1");
   const [difficulty, setDifficulty] = useState(DIFFICULTY[0]);
@@ -34,8 +36,18 @@ const Category = () => {
 
     // Send request to API for getting questions
     const { data } = await getQuestions({ categoryToReqest, questionsAmount, difficulty });
-    console.log(data);
-    // Store questions in questions context ??
+    // Only keep questions data we need
+    const questionsData = data.map((question: TQuestions) => ({
+      category: question.category,
+      correctAnswer: question.correctAnswer,
+      id: question.id,
+      incorrectAnswers: question.incorrectAnswers,
+      question: question.question,
+    }));
+    // Store questions in questionsContext
+    setQuestionsState([...questionsData]);
+
+    // Redirect to questions page
   };
 
   return (

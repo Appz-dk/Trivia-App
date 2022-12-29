@@ -1,6 +1,7 @@
+import { createContext, Dispatch, SetStateAction, useState } from "react";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import "./App.css";
 import Categories from "./components/Categories";
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Category from "./components/Category";
 
 const AppLayout = () => (
@@ -30,11 +31,34 @@ const router = createBrowserRouter([
   },
 ]);
 
+export type TQuestions = {
+  category: string;
+  correctAnswer: string;
+  id: string;
+  incorrectAnswers: string[];
+  question: string;
+};
+
+type TQuestionsContext = {
+  questionsState: TQuestions[] | null;
+  setQuestionsState: React.Dispatch<React.SetStateAction<TQuestions[] | null>>;
+};
+
+const TQuestionsContextState = {
+  questionsState: null,
+  setQuestionsState: () => {},
+};
+
+export const QuestionsContext = createContext<TQuestionsContext>(TQuestionsContextState);
+
 function App() {
+  const [questionsState, setQuestionsState] = useState<TQuestions[] | null>(null);
   return (
-    <div className="App">
-      <RouterProvider router={router} />
-    </div>
+    <QuestionsContext.Provider value={{ questionsState, setQuestionsState }}>
+      <div className="App">
+        <RouterProvider router={router} />
+      </div>
+    </QuestionsContext.Provider>
   );
 }
 
