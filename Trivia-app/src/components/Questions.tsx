@@ -1,10 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { QuestionsContext } from "../App";
+import AnswersGiven from "./AnswersGiven";
 import classes from "./questions.module.css";
+import QuizOver from "./QuizOver";
 import Container from "./utils/Container";
 
-type TAnswersGiven = {
+export type TAnswersGiven = {
   question: string;
   correctAnswer: string;
   answerGiven: string;
@@ -61,10 +63,6 @@ const Questions = () => {
     setCurrentQuestion((currentQuestion) => currentQuestion + 1);
   };
 
-  const perfectScore = correctAnswersAmount === currentQuestion + 1;
-  const greatJob = currentQuestion + 1 > 2 && correctAnswersAmount > Math.floor((currentQuestion + 1) / 2);
-  const betterLuck = correctAnswersAmount <= Math.floor((currentQuestion + 1) / 2);
-
   return (
     <Container>
       {questionsState && !quizIsOver && (
@@ -81,33 +79,13 @@ const Questions = () => {
         </>
       )}
       {!questionsState && quizIsOver && (
-        <div className={classes.box}>
-          <div>
-            {perfectScore && <p>Perfect Score!</p>}
-            {greatJob && <p>Great job!</p>}
-            {betterLuck && <p>Better luck next time...</p>}
-            <p>
-              You had {correctAnswersAmount}/{currentQuestion + 1} correct Answers!
-            </p>
-          </div>
-          <div className={classes.action}>
-            <button onClick={() => setShowAnswers((prev) => !prev)}>{showAnswers ? "Hide" : "Show"} Answers</button>
-            <button onClick={() => navigate("/")}>Back to categories</button>
-          </div>
-          {showAnswers && (
-            <div>
-              {answersGiven.map((answer) => (
-                <div key={answer.question} className={classes.card}>
-                  <p>{answer.question}</p>
-                  <p>Correct answer: {answer.correctAnswer}</p>
-                  <p style={{ color: `${answer.correctAnswer != answer.answerGiven ? "red" : "green"}` }}>
-                    Answer given: {answer.answerGiven}
-                  </p>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+        <QuizOver
+          correctAnswersAmount={correctAnswersAmount}
+          currentQuestion={currentQuestion}
+          showAnswers={showAnswers}
+          setShowAnswers={setShowAnswers}
+          answersGiven={answersGiven}
+        />
       )}
     </Container>
   );
