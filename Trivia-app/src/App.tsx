@@ -3,6 +3,7 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import "./App.css";
 import Categories from "./components/Categories";
 import Category from "./components/Category";
+import Questions from "./components/Questions";
 
 const AppLayout = () => (
   <>
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "/categories/:category",
         element: <Category />,
+      },
+      {
+        path: "/questions",
+        element: <Questions />,
       },
     ],
   },

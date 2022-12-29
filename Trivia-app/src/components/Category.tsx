@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getQuestions } from "../api/getQuestions";
 import { QuestionsContext, TQuestions } from "../App";
 import classes from "./category.module.css";
-import Contaier from "./utils/Contaier";
+import Container from "./utils/Container";
 
 // https://the-trivia-api.com/api/questions?categories=arts_and_literature&limit=5&difficulty=easy
 
@@ -14,6 +14,8 @@ const Category = () => {
   const { category } = useParams();
   const [questionsAmount, setQuestionsAmount] = useState<string>("1");
   const [difficulty, setDifficulty] = useState(DIFFICULTY[0]);
+
+  const navigate = useNavigate();
 
   const handleDifficultyChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setDifficulty(e.target.value);
@@ -48,10 +50,11 @@ const Category = () => {
     setQuestionsState([...questionsData]);
 
     // Redirect to questions page
+    navigate("/questions");
   };
 
   return (
-    <Contaier>
+    <Container>
       <h1>{category}</h1>
       <div>
         <form className={classes["form-container"]} onSubmit={(e) => handleGetQuestions(e)}>
@@ -83,7 +86,7 @@ const Category = () => {
           </div>
         </form>
       </div>
-    </Contaier>
+    </Container>
   );
 };
 

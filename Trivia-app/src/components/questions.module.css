@@ -1,0 +1,20 @@
+.question-title {
+    font-size: 2rem;
+}
+
+.question {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.question-answers {
+    margin-bottom: 1rem;
+}
+
+.question-answers button {
+    background-color: #e3e3e3;
+    min-width: 20rem;
+    max-width: 20rem;
+}
