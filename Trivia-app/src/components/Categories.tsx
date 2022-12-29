@@ -27,6 +27,7 @@ const Categories = () => {
           </Link>
         ))}
       </div>
+      <span>API by: https://the-trivia-api.com/</span>
     </Container>
   );
 };

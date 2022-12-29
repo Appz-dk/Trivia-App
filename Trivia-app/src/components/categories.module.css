@@ -18,6 +18,7 @@ h1 {
 .category {
     margin-block: auto;
     border: 1px solid white;
+    border-radius: .5rem;
     padding: 2rem 1rem;
     cursor: pointer;
     color: white;
