@@ -1,3 +1,7 @@
+.instructions {
+    margin-bottom: 1.5rem;
+}
+
 .form-container {
     max-width: 40rem;
     display: flex;

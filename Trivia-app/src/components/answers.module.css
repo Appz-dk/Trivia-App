@@ -1,0 +1,15 @@
+.box {
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.action {
+    margin-top: 1rem;
+}
+
+.action button {
+    background-color: #e3e3e3;
+}

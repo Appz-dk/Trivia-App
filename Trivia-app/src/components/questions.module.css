@@ -1,5 +1,5 @@
 .question-title {
-    font-size: 2rem;
+    font-size: 1.6rem;
 }
 
 .question {
@@ -7,10 +7,12 @@
     flex-direction: column;
     margin-bottom: 2rem;
     font-size: 1.1rem;
+    padding-inline: .2rem;
 }
 
 .question-answers {
     margin-bottom: 1rem;
+    max-width: 25rem;
 }
 
 .question-answers button {

@@ -56,6 +56,7 @@ const Category = () => {
   return (
     <Container>
       <h1>{category}</h1>
+      <p className={classes.instructions}>Please select the difficulty and amount of questions you would like to get</p>
       <div>
         <form className={classes["form-container"]} onSubmit={(e) => handleGetQuestions(e)}>
           <div className={classes["form-input"]}>
@@ -82,7 +83,7 @@ const Category = () => {
             <p className={classes["question-amount"]}>Limit: {questionsAmount}</p>
           </div>
           <div className={classes.action}>
-            <button>Get Questions</button>
+            <button>Start Quiz</button>
           </div>
         </form>
       </div>

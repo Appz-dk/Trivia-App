@@ -19,6 +19,7 @@ const Categories = () => {
   return (
     <Container>
       <h1>Trivia App</h1>
+      <p className={classes["categories-info"]}>Test your knowledge in any of the below Categories</p>
       <div className={classes.categories}>
         {categories.map((category) => (
           <Link key={`${category}`} to={`/categories/${category}`} className={classes.category}>

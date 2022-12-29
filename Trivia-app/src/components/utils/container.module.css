@@ -1,8 +1,6 @@
 .container {
-    margin: 5rem 0;
     display: flex;
     flex-direction: column;
-    justify-items: center;
     align-items: center;
 }
 
