@@ -4,25 +4,21 @@ import { QuestionsContext } from "../App";
 import classes from "./questions.module.css";
 import Container from "./utils/Container";
 
+type TAnswersGiven = {
+  question: string;
+  correctAnswer: string;
+  answerGiven: string;
+};
+
 const Questions = () => {
   const { questionsState, setQuestionsState } = useContext(QuestionsContext);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [currentAnswers, setCurrentAnswers] = useState<string[]>([]);
   const [correctAnswersAmount, setCorrectAnswersAmount] = useState(0);
-
+  const [answersGiven, setAnswersGiven] = useState<TAnswersGiven[]>([]);
+  const [quizIsOver, setQuizIsOver] = useState(false);
+  const [showAnswers, setShowAnswers] = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    // setQuestionsState([
-    //   {
-    //     category: "The category",
-    //     correctAnswer: "This is a very long answer that has to fit inside of the button",
-    //     id: "The-id",
-    //     incorrectAnswers: ["Wrong1", "Wrong2", "Wrong3"],
-    //     question: "The question is here and can sometimes be long",
-    //   },
-    // ]);
-  }, []);
 
   useEffect(() => {
     if (questionsState) {
@@ -38,35 +34,40 @@ const Questions = () => {
   }, [currentQuestion, questionsState]);
 
   const handleAnswerQuestion = (answer: string) => {
+    if (!questionsState) return;
+
+    // Keep track of answers given
+    setAnswersGiven((prevState) => [
+      ...prevState,
+      {
+        question: questionsState[currentQuestion].question,
+        correctAnswer: questionsState[currentQuestion].correctAnswer,
+        answerGiven: answer,
+      },
+    ]);
+
     // Check if answer was correct
-    if (questionsState && questionsState[currentQuestion].correctAnswer === answer) {
-      // update correct answers amount
+    if (questionsState[currentQuestion].correctAnswer === answer) {
       setCorrectAnswersAmount((amount) => amount + 1);
+    }
+
+    // Check if last question
+    if (currentQuestion === questionsState?.length - 1) {
+      setQuizIsOver(true);
+      setQuestionsState(null);
+      return;
     }
     // update what question to display
     setCurrentQuestion((currentQuestion) => currentQuestion + 1);
-
-    // Check if last question
-    if (questionsState && currentQuestion === questionsState?.length - 1) {
-      // No more questions so
-      const answersAmount = questionsState.length;
-      // set questionState back to null.
-      setQuestionsState(null);
-      // set currentQuestion back to 0 ?? Maybe not necessary
-      // set current answer back to empty [] ??
-      // return redirect to "/questions/answers" page
-      return navigate("/questions/answers", {
-        state: {
-          correctAnswersAmount,
-          answersAmount,
-        },
-      });
-    }
   };
+
+  const perfectScore = correctAnswersAmount === currentQuestion + 1;
+  const greatJob = currentQuestion + 1 > 2 && correctAnswersAmount > Math.floor((currentQuestion + 1) / 2);
+  const betterLuck = correctAnswersAmount <= Math.floor((currentQuestion + 1) / 2);
 
   return (
     <Container>
-      {questionsState && (
+      {questionsState && !quizIsOver && (
         <>
           <h1 className={classes["question-title"]}>{questionsState[currentQuestion].category}</h1>
           <div className={classes.question}>
@@ -78,6 +79,35 @@ const Questions = () => {
             </div>
           ))}
         </>
+      )}
+      {!questionsState && quizIsOver && (
+        <div className={classes.box}>
+          <div>
+            {perfectScore && <p>Perfect Score!</p>}
+            {greatJob && <p>Great job!</p>}
+            {betterLuck && <p>Better luck next time...</p>}
+            <p>
+              You had {correctAnswersAmount}/{currentQuestion + 1} correct Answers!
+            </p>
+          </div>
+          <div className={classes.action}>
+            <button onClick={() => setShowAnswers((prev) => !prev)}>{showAnswers ? "Hide" : "Show"} Answers</button>
+            <button onClick={() => navigate("/")}>Back to categories</button>
+          </div>
+          {showAnswers && (
+            <div>
+              {answersGiven.map((answer) => (
+                <div key={answer.question} className={classes.card}>
+                  <p>{answer.question}</p>
+                  <p>Correct answer: {answer.correctAnswer}</p>
+                  <p style={{ color: `${answer.correctAnswer != answer.answerGiven ? "red" : "green"}` }}>
+                    Answer given: {answer.answerGiven}
+                  </p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       )}
     </Container>
   );

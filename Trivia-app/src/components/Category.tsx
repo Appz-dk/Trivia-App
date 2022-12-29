@@ -5,8 +5,6 @@ import { QuestionsContext, TQuestions } from "../App";
 import classes from "./category.module.css";
 import Container from "./utils/Container";
 
-// https://the-trivia-api.com/api/questions?categories=arts_and_literature&limit=5&difficulty=easy
-
 const DIFFICULTY = ["easy", "medium", "hard"];
 
 const Category = () => {
@@ -48,9 +46,8 @@ const Category = () => {
     }));
     // Store questions in questionsContext
     setQuestionsState([...questionsData]);
-
     // Redirect to questions page
-    navigate("/questions");
+    navigate(`/${category.toLowerCase()}/questions`);
   };
 
   return (
@@ -73,9 +70,9 @@ const Category = () => {
             <label htmlFor="questions">Amount Of Questions</label>
             <input
               type="range"
-              min="0"
+              min="1"
               value={questionsAmount}
-              max="11"
+              max="10"
               id="questions"
               onChange={(e) => handleQuestionsAmountChange(e)}
               className={classes.slider}

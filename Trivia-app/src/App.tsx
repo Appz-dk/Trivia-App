@@ -1,7 +1,6 @@
 import { createContext, Dispatch, SetStateAction, useState } from "react";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import "./App.css";
-import Answers from "./components/Answers";
 import Categories from "./components/Categories";
 import Category from "./components/Category";
 import Questions from "./components/Questions";
@@ -30,12 +29,8 @@ const router = createBrowserRouter([
         element: <Category />,
       },
       {
-        path: "/questions",
+        path: "/:category/questions",
         element: <Questions />,
-      },
-      {
-        path: "/questions/answers",
-        element: <Answers />,
       },
     ],
   },
