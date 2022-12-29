@@ -11,7 +11,6 @@ const AppLayout = () => (
   </>
 );
 
-// children: [...components]
 const router = createBrowserRouter([
   {
     element: <AppLayout />,

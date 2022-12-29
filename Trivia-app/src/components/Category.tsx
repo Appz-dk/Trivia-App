@@ -10,7 +10,7 @@ const DIFFICULTY = ["easy", "medium", "hard"];
 const Category = () => {
   const { questionsState, setQuestionsState } = useContext(QuestionsContext);
   const { category } = useParams();
-  const [questionsAmount, setQuestionsAmount] = useState<string>("1");
+  const [questionsAmount, setQuestionsAmount] = useState<string>("5");
   const [difficulty, setDifficulty] = useState(DIFFICULTY[0]);
 
   const navigate = useNavigate();
@@ -81,6 +81,7 @@ const Category = () => {
           </div>
           <div className={classes.action}>
             <button>Start Quiz</button>
+            <button onClick={() => navigate("/")}>Back</button>
           </div>
         </form>
       </div>
