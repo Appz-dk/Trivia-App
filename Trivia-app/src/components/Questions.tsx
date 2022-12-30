@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { QuestionsContext } from "../App";
 import AnswersGiven from "./AnswersGiven";
 import classes from "./questions.module.css";
@@ -20,7 +19,6 @@ const Questions = () => {
   const [answersGiven, setAnswersGiven] = useState<TAnswersGiven[]>([]);
   const [quizIsOver, setQuizIsOver] = useState(false);
   const [showAnswers, setShowAnswers] = useState(false);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (questionsState) {

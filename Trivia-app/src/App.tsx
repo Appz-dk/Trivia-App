@@ -1,37 +1,26 @@
-import { createContext, Dispatch, SetStateAction, useState } from "react";
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import React, { createContext, useState } from "react";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import "./App.css";
 import Categories from "./components/Categories";
 import Category from "./components/Category";
 import Questions from "./components/Questions";
 
-const AppLayout = () => (
-  <>
-    <Outlet />
-  </>
-);
-
 const router = createBrowserRouter([
   {
-    element: <AppLayout />,
-    children: [
-      {
-        path: "/",
-        element: <Categories />,
-      },
-      {
-        path: "/categories",
-        element: <Categories />,
-      },
-      {
-        path: "/categories/:category",
-        element: <Category />,
-      },
-      {
-        path: "/:category/questions",
-        element: <Questions />,
-      },
-    ],
+    index: true,
+    element: <Navigate to="/categories" replace />,
+  },
+  {
+    path: "/categories",
+    element: <Categories />,
+  },
+  {
+    path: "/categories/:category",
+    element: <Category />,
+  },
+  {
+    path: "/:category/questions",
+    element: <Questions />,
   },
 ]);
 
