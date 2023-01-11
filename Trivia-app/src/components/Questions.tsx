@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { QuestionsContext } from "../App";
-import AnswersGiven from "./AnswersGiven";
 import classes from "./questions.module.css";
 import QuizOver from "./QuizOver";
 import Container from "./utils/Container";
