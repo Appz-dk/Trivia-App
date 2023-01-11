@@ -20,3 +20,12 @@
   max-width: 20rem;
   background-color: #e3e3e3;
 }
+
+.error-text {
+  font-size: 2.5rem;
+  margin-top: 5rem;
+}
+
+.error button {
+  background-color: #e3e3e3;
+}

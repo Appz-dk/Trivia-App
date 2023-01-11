@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { QuestionsContext } from "../App";
 import classes from "./questions.module.css";
 import QuizOver from "./QuizOver";
@@ -18,6 +19,8 @@ const Questions = () => {
   const [answersGiven, setAnswersGiven] = useState<TAnswersGiven[]>([]);
   const [quizIsOver, setQuizIsOver] = useState(false);
   const [showAnswers, setShowAnswers] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (questionsState) {
@@ -75,6 +78,7 @@ const Questions = () => {
           ))}
         </>
       )}
+
       {!questionsState && quizIsOver && (
         <QuizOver
           correctAnswersAmount={correctAnswersAmount}
@@ -83,6 +87,13 @@ const Questions = () => {
           setShowAnswers={setShowAnswers}
           answersGiven={answersGiven}
         />
+      )}
+
+      {!quizIsOver && !questionsState && (
+        <div className={classes.error}>
+          <p className={classes["error-text"]}>No questions found ...</p>
+          <button onClick={() => navigate("/")}>Back</button>
+        </div>
       )}
     </Container>
   );

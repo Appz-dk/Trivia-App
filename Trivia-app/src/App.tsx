@@ -5,8 +5,6 @@ import Categories from "./components/Categories";
 import Category from "./components/Category";
 import Questions from "./components/Questions";
 
-const BASE_URL = "Trivia-App/";
-
 const router = createBrowserRouter(
   [
     {
