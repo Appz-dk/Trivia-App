@@ -1,22 +1,22 @@
 .question-title {
-    font-size: 1.6rem;
+  font-size: 1.6rem;
 }
 
 .question {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
-    padding-inline: .2rem;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  padding-inline: 0.2rem;
 }
 
 .question-answers {
-    margin-bottom: 1rem;
-    max-width: 25rem;
+  margin-bottom: 1rem;
+  max-width: 25rem;
 }
 
 .question-answers button {
-    background-color: #e3e3e3;
-    min-width: 20rem;
-    max-width: 20rem;
+  min-width: 20rem;
+  max-width: 20rem;
+  background-color: #e3e3e3;
 }

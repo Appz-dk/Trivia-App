@@ -5,24 +5,31 @@ import Categories from "./components/Categories";
 import Category from "./components/Category";
 import Questions from "./components/Questions";
 
-const router = createBrowserRouter([
+const BASE_URL = "Trivia-App/";
+
+const router = createBrowserRouter(
+  [
+    {
+      index: true,
+      element: <Navigate to="/categories" replace />,
+    },
+    {
+      path: "/categories",
+      element: <Categories />,
+    },
+    {
+      path: "/categories/:category",
+      element: <Category />,
+    },
+    {
+      path: "/:category/questions",
+      element: <Questions />,
+    },
+  ],
   {
-    index: true,
-    element: <Navigate to="/categories" replace />,
-  },
-  {
-    path: "/categories",
-    element: <Categories />,
-  },
-  {
-    path: "/categories/:category",
-    element: <Category />,
-  },
-  {
-    path: "/:category/questions",
-    element: <Questions />,
-  },
-]);
+    basename: "/Trivia-App",
+  }
+);
 
 export type TQuestions = {
   category: string;
